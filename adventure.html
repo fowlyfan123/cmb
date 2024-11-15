@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyclone Band Adventure</title>
+    <style>
+        body {
+            background-color: black;
+            color: #00FF00;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        #output {
+            white-space: pre-line;
+        }
+        #input {
+            color: #00FF00;
+            background-color: #333333;
+            border: none;
+            border-bottom: 2px solid #00FF00;
+            width: 100%;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 16px;
+            padding: 5px;
+            outline: none;
+        }
+        #input::placeholder {
+            color: #00FF00;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div id="output"></div>
+    <input type="text" id="input" placeholder="Type your response here..." autofocus>
+
+    <script>
+        const outputElement = document.getElementById('output');
+        const inputElement = document.getElementById('input');
+        let currentCallback = null;
+
+        function typeWriter(text, callback) {
+            let index = 0;
+            function type() {
+                if (index < text.length) {
+                    outputElement.textContent += text[index];
+                    index++;
+                    setTimeout(type, 30);
+                } else {
+                    outputElement.textContent += "\n\n";
+                    if (callback) callback();
+                }
+            }
+            type();
+        }
+
+        function getPlayerInput(callback) {
+            currentCallback = callback;
+        }
+
+        inputElement.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' && currentCallback) {
+                const input = inputElement.value.trim();
+                inputElement.value = '';
+                outputElement.textContent += '> ' + input + '\n';
+                currentCallback(input);
+                currentCallback = null;
+            }
+        });
+
+        function roomSearch() {
+            typeWriter("You hit the snooze button on your alarm clock. It's gameday.  You jump out of bed and start getting prepared for the day, but you need to find your uniform, instrument, and shako before you can leave.", () => {
+                let items = {"uniform": false, "instrument": false, "shako": false};
+                let locations = ["under the bed", "inside the closet", "in the laundry basket", "behind the door", "in the dresser"];
+
+                function searchRoom() {
+                    if (Object.values(items).every(item => item)) {
+                        typeWriter("You found everything! Time to head out.", bearcatAttack);
+                        return;
+                    }
+
+                    typeWriter("Where do you want to search?\n", () => {
+                        locations.forEach((location, index) => {
+                            outputElement.textContent += `${index + 1}. ${location}\n`;
+                        });
+
+                        getPlayerInput((choice) => {
+                            const choiceIndex = parseInt(choice) - 1;
+                            if (!isNaN(choiceIndex) && choiceIndex >= 0 && choiceIndex < locations.length) {
+                                let chosenLocation = locations[choiceIndex];
+                                typeWriter(`You search ${chosenLocation}...`, () => {
+                                    let foundItem = Object.keys(items).find(item => !items[item]);
+                                    items[foundItem] = true;
+                                    typeWriter(`You found your ${foundItem}!
+`, searchRoom);
+                                });
+                                locations.splice(choiceIndex, 1);
+                            } else {
+                                typeWriter("Invalid choice. Please try again.\n", searchRoom);
+                            }
+                        });
+                    });
+                }
+                searchRoom();
+            });
+        }
+
+        function bearcatAttack() {
+            typeWriter("As you step out of your room, instead of the familiar hallway of your dorm, you are in the middle of a field of rolling green hills.  Almost out of nowhere, a Bearcat suddenly appears! It snarls at you, ready to fight.", () => {
+                typeWriter("What will you do?\n1. Play a loud note to scare it away\n2. Try to calm it with a soothing melody\n3. Stand your ground bravely\n", () => {
+                    getPlayerInput((choice) => {
+                        typeWriter("Just as you are about to take action, Cy swoops in! The Bearcat is no match for Cy's aerial skills, and the Bearcat retreats with his tail between his legs.", village);
+                    });
+                });
+            });
+        }
+
+        function village() {
+            typeWriter("You come across a small village.  There are many damaged buildings with claw marks. The villagers are upset and wary of strangers, since they were recently attacked by a Bearcat, which they have never seen before.", () => {
+                typeWriter("Do you want to help the villagers or continue on to the forest?\n1. Help the villagers\n2. Continue to the forest\n", () => {
+                    getPlayerInput((choice) => {
+                        if (choice === '1') {
+                            typeWriter("You use your musical talents to lift the villagers' spirits and help repair some of the damage.", () => {
+                                typeWriter("The grateful villagers give you a magical tuning fork. It seems to hum with a special energy.", () => {
+                                    forest(true);
+                                });
+                            });
+                        } else if (choice === '2') {
+                            typeWriter("You decide to continue on to the forest without helping the villagers.", () => {
+                                forest(false);
+                            });
+                        } else {
+                            typeWriter("Invalid choice. Please try again.\n", village);
+                        }
+                    });
+                });
+            });
+        }
+
+        function forest(hasTuningFork) {
+            typeWriter("You enter the forest. The trees seem to sway in time with a melody only they can hear. In the distance you hear the clashing of metal and bone like there is a struggle.", () => {
+                typeWriter("Do you want to explore the forest or move towards the sounds of fighting in the distance?\n1. Explore the forest\n2. Move towards the sounds of fighting\n", () => {
+                    getPlayerInput((choice) => {
+                        if (choice === '1') {
+                            typeWriter("You find a magical metronome! Its steady beat seems to fill you with determination.", () => {
+                                battle(hasTuningFork, true);
+                            });
+                        } else if (choice === '2') {
+                            typeWriter("You decide to move towards the sounds of fighting in the distance.", () => {
+                                battle(hasTuningFork, false);
+                            });
+                        } else {
+                            typeWriter("Invalid choice. Please try again.\n", () => forest(hasTuningFork));
+                        }
+                    });
+                });
+            });
+        }
+
+        function battle(hasTuningFork, hasMetronome) {
+            typeWriter("As you exit the forest, you find yourself in a clearing. A knight and a dragon are locked in an epic battle!", () => {
+                typeWriter("The knight swings his sword while the dragon breathes fire, and it seems like neither side is winning.", () => {
+                    if (hasTuningFork && hasMetronome) {
+                        typeWriter("What will you do?\n1. Help the knight\n2. Help the dragon\n3. Use the magical tuning fork and metronome to stop the fighting\n", () => {
+                            getPlayerInput((choice) => {
+                                if (choice === '1') {
+                                    typeWriter("You decide to help the knight. You play a powerful tune that emboldens the knight, giving him the strength to overpower the dragon. The knight thanks you for your help and rides off victoriously.", ending);
+                                } else if (choice === '2') {
+                                    typeWriter("You decide to help the dragon. You play a haunting melody that distracts the knight, allowing the dragon to gain the upper hand. The dragon thanks you with a nod before flying away.", ending);
+                                } else if (choice === '3') {
+                                    typeWriter("Using both the magical tuning fork and the metronome, you play a powerful tune. The knight and dragon suddenly stop, look at each other, and decide they don't need to fight anymore. They both thank you, shake hand, and go their separate ways.", ending);
+                                } else {
+                                    typeWriter("Invalid choice. Please try again.\n", () => battle(hasTuningFork, hasMetronome));
+                                }
+                            });
+                        });
+                    } else {
+                        typeWriter("What will you do?\n1. Help the knight\n2. Help the dragon\n", () => {
+                            getPlayerInput((choice) => {
+                                if (choice === '1') {
+                                    typeWriter("You decide to help the knight. You play a powerful tune that emboldens the knight, giving him the strength to overpower the dragon. The knight thanks you for your help and rides off victoriously.", ending);
+                                } else if (choice === '2') {
+                                    typeWriter("You decide to help the dragon. You play a haunting melody that distracts the knight, allowing the dragon to gain the upper hand. The dragon thanks you with a nod before flying away.", ending);
+                                } else {
+                                    typeWriter("Invalid choice. Please try again.\n", () => battle(hasTuningFork, hasMetronome));
+                                }
+                            });
+                        });
+                    }
+                });
+            });
+        }
+
+        function ending() {
+            typeWriter("With the battle complete, the wind picks up and you feel a rumbling in your chest. Behind you a massive cyclone appears and sweeps you off your feet! You spin and tumble through the air, and before you know it you have landed at Jack Trice Stadium.", () => {
+                typeWriter("You hear a long whistle and the screams of your friends.  You're back just in time for the show! The Cyclone Marching Band takes the field, and you know this will be a performance to remember.", () => {
+                    typeWriter("The end. Thanks for playing!");
+                });
+            });
+        }
+
+        function main() {
+            typeWriter("Welcome to the Cyclone Marching Band Adventure!", () => {
+                typeWriter("Your journey begins now...\n", roomSearch);
+            });
+        }
+
+        main();
+    </script>
+</body>
+</html>
