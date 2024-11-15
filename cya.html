@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyclone Marching Band - Choose Your Adventure</title>
+    <style>
+        body {
+            background-color: black;
+            color: limegreen;
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            line-height: 1.5;
+        }
+
+        #game {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 2px solid limegreen;
+        }
+
+        button {
+            background-color: black;
+            color: limegreen;
+            border: 1px solid limegreen;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            margin: 5px 0;
+        }
+
+        button:hover {
+            background-color: limegreen;
+            color: black;
+        }
+
+        #end-screen {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+            color: limegreen;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="game">
+        <p id="text"></p>
+        <div id="options"></div>
+        <button id="reset" style="display: none;">Reset</button>
+    </div>
+    <div id="end-screen">
+        <p>Join the Cyclone Marching Band for our "Choose Your Adventure" halftime show on November 16, 2024!</p>
+        <p>Witness an epic clash between a fierce dragon and a gallant knight and choose the ending LIVE in Jack Trice Stadium!</p>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const gameData = {
+                intro: {
+                    text: "You're a proud member of the Iowa State University Cyclone Marching Band. Before leaving for the big game, you need to find three items: your uniform, your instrument, and your shako. Where will you search?",
+                    choices: {
+                        "Search under the bed": "underBed",
+                        "Open the closet": "closet",
+                        "Check the desk": "desk"
+                    },
+                    inventory: []
+                },
+                underBed: {
+                    text: "You found your shako under the bed. It's a bit dusty, but it will do. Where will you search next?",
+                    choices: {
+                        "Open the closet": "closet",
+                        "Check the desk": "desk"
+                    },
+                    action: () => addItem("shako")
+                },
+                closet: {
+                    text: "You find your uniform hanging neatly. You grab it. Where will you search next?",
+                    choices: {
+                        "Search under the bed": "underBed",
+                        "Check the desk": "desk"
+                    },
+                    action: () => addItem("uniform")
+                },
+                desk: {
+                    text: "Your instrument is sitting on the desk, gleaming and ready for action. Now, do you have all your items?",
+                    choices: {
+                        "Yes, leave the room": "tryToLeave",
+                        "No, keep searching": "desk"
+                    },
+                    action: () => addItem("instrument")
+                },
+                tryToLeave: {
+                    text: function () {
+                        return currentState.inventory.length === 3
+                            ? "You have all your items! As you open the door, a ferocious Bearcat appears!"
+                            : "The door won't budge. It seems you're missing something...";
+                    },
+                    choices: currentState.inventory.length === 3 ? {
+                        "Proceed": "bearcatEncounter"
+                    } : {
+                        "Go back": "intro"
+                    }
+                },
+                bearcatEncounter: {
+                    text: "A Bearcat lunges at you! Cy swoops in, and a tense fight begins. The Bearcat swipes its claws. What will you do?",
+                    choices: {
+                        "Dodge": "dodgeBearcat",
+                        "Counterattack": "counterBearcat"
+                    }
+                },
+                dodgeBearcat: {
+                    text: "You dodge the Bearcat's claws. Cy flaps his wings and distracts it. What will you do next?",
+                    choices: {
+                        "Shout": "shoutAtBearcat",
+                        "Attack": "counterBearcat"
+                    }
+                },
+                shoutAtBearcat: {
+                    text: "You shout a battle cry. The Bearcat hesitates, giving Cy a chance to tackle it. Now's your chance to finish the fight!",
+                    choices: {
+                        "Finish it": "finishBearcat"
+                    }
+                },
+                counterBearcat: {
+                    text: "You swing your instrument and strike a decisive blow. The Bearcat snarls and retreats. Cy gives you a nod of approval.",
+                    choices: {
+                        "Proceed": "fantasyWorld"
+                    }
+                },
+                finishBearcat: {
+                    text: "With Cy's help, you defeat the Bearcat. It retreats, growling in defeat. Cy points to a shimmering portal.",
+                    choices: {
+                        "Enter the portal": "fantasyWorld"
+                    }
+                },
+                fantasyWorld: {
+                    text: "You step into a vibrant fantasy world with rolling hills and a castle in the distance. A villager approaches, offering you a magical artifact. Will you accept?",
+                    choices: {
+                        "Yes": "artifact",
+                        "No": "village"
+                    }
+                },
+                artifact: {
+                    text: "The villager gives you an enchanted metronome to guide your rhythm. What will you do next?",
+                    choices: {
+                        "Explore the village": "village",
+                        "Head into the forest": "forest"
+                    }
+                },
+                village: {
+                    text: "The villagers ask for help defeating a dragon. Will you help them?",
+                    choices: {
+                        "Yes": "dragon",
+                        "No": "forest"
+                    }
+                },
+                forest: {
+                    text: "You hear a clash of metal and roars in the forest. A dragon and knight are fighting. Who will you help?",
+                    choices: {
+                        "Help the dragon": "helpDragon",
+                        "Help the knight": "helpKnight",
+                        "Wait and see": "observeBattle"
+                    }
+                },
+                helpDragon: {
+                    text: "You help the dragon defeat the knight. It rewards you with treasure.",
+                    choices: {
+                        "Continue": "cyclone"
+                    }
+                },
+                helpKnight: {
+                    text: "You help the knight defeat the dragon. They thank you with a share of the treasure.",
+                    choices: {
+                        "Continue": "cyclone"
+                    }
+                },
+                observeBattle: {
+                    text: "The dragon and knight exhaust each other. You step in and claim victory with your music.",
+                    choices: {
+                        "Continue": "cyclone"
+                    }
+                },
+                cyclone: {
+                    text: "A cyclone of music transports you to Jack Trice Stadium, just in time for the game.",
+                    choices: {
+                        "End": "endScreen"
+                    }
+                },
+                endScreen: {
+                    text: "",
+                    choices: {}
+                }
+            };
+
+            let currentState = { currentScene: "intro", inventory: [] };
+
+            const addItem = (item) => {
+                if (!currentState.inventory.includes(item)) {
+                    currentState.inventory.push(item);
+                }
+            };
+
+            const updateGame = () => {
+                const scene = gameData[currentState.currentScene];
+                document.getElementById("text").innerText = typeof scene.text === "function" ? scene.text() : scene.text;
+                const options = document.getElementById("options");
+                options.innerHTML = "";
+                for (const [choice, nextScene] of Object.entries(scene.choices)) {
+                    const button = document.createElement("button");
+                    button.innerText = choice;
+                    button.addEventListener("click", () => {
+                        if (scene.action) scene.action();
+                        currentState.currentScene = nextScene;
+                        updateGame();
+                    });
+                    options.appendChild(button);
+                }
+
+                // Show or hide reset button based on current state
+                if (currentState.currentScene === "endScreen") {
+                    document.getElementById("reset").style.display = "block";
+                } else {
+                    document.getElementById("reset").style.display = "none";
+                }
+            };
+
+            const resetGame = () => {
+                currentState = { currentScene: "intro", inventory: [] };
+                document.getElementById("end-screen").style.display = "none";
+                document.getElementById("options").style.display = "block";
+                updateGame();
+            };
+
+            // Event listeners
+            document.getElementById("reset").addEventListener("click", resetGame);
+
+            // Start game automatically on load
+            updateGame();
+        });
+    </script>
+</body>
+
+</html>
