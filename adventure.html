@@ -106,27 +106,27 @@
         }
 
         function bearcatAttack() {
-            typeWriter("As you step out of your room, instead of the familiar hallway of your dorm, you are in the middle of a field of rolling green hills.  Almost out of nowhere, a Bearcat suddenly appears! It snarls at you, ready to fight.", () => {
+            typeWriter("As you step out of your room, instead of the familiar hallway of your dorm, you are in the middle of a field of rolling green hills and the sound of bells in the distance.  Interupting this calm and magical world, almost out of nowhere, a bearcat suddenly appears! It snarls at you, ready to fight.", () => {
                 typeWriter("What will you do?\n1. Play a loud note to scare it away\n2. Try to calm it with a soothing melody\n3. Stand your ground bravely\n", () => {
                     getPlayerInput((choice) => {
-                        typeWriter("Just as you are about to take action, Cy swoops in! The Bearcat is no match for Cy's aerial skills, and the Bearcat retreats with his tail between his legs.", village);
+                        typeWriter("Just as you are about to take action, Cy swoops in! The Bearcat is no match for Cy's aerial skills, and the bearcat retreats with his tail between his legs.", village);
                     });
                 });
             });
         }
 
         function village() {
-            typeWriter("You come across a small village.  There are many damaged buildings with claw marks. The villagers are upset and wary of strangers, since they were recently attacked by a Bearcat, which they have never seen before in this part of the world.", () => {
+            typeWriter("You come across a small village.  There are many damaged buildings with claw marks.  A child sits in the road crying with an empty ice cream cone that appears to have had the top completely eaten by a vicious creature. The villagers look upset and wary of strangers. You here one village should angrilly to the sky, 'What even is a bearcat!?!' and you guess this village was recently attacked by the same bearcat that just came after you, which makes little sense because they are not indigenous to this region.", () => {
                 typeWriter("Do you want to help the villagers or continue on to the forest?\n1. Help the villagers\n2. Continue to the forest\n", () => {
                     getPlayerInput((choice) => {
                         if (choice === '1') {
-                            typeWriter("You use your musical talents to lift the villagers' spirits and help repair some of the damage.", () => {
-                                typeWriter("The grateful villagers give you a magical tuning fork. It seems to hum with a special energy.", () => {
+                            typeWriter("You use your musical talents to lift the villagers' spirits and help repair some of the damage, because music brings people (and structural damage) together.  The child's ice cream cone magically restores itself as a swirl of cardinal and gold soft-serve, almost too high for the child to handle.", () => {
+                                typeWriter("The grateful villagers give you a magical tuner. It seems to hum with a special tonal energy.", () => {
                                     forest(true);
                                 });
                             });
                         } else if (choice === '2') {
-                            typeWriter("You decide to continue on to the forest without helping the villagers.", () => {
+                            typeWriter("You decide to continue on to the forest without helping the villagers.  You really saw the kid with the missing ice cream and didn't want to help?", () => {
                                 forest(false);
                             });
                         } else {
@@ -138,11 +138,11 @@
         }
 
         function forest(hasTuningFork) {
-            typeWriter("You enter the forest. The trees seem to sway in time with a melody only they can hear. In the distance you hear the clashing of metal and bone like there is a struggle.", () => {
+            typeWriter("You enter the forest. The trees seem to sway in time with a melody only they can hear.  Around each tree you see small sprouts of different moss and fungus in the shapes of different instruments. One tree has piccolo shaped moss, while another has trombone shaped mushrooms around the base.  One tree has recently been uprooted and has a number of mellophone-shaped flowers now withering in the sunlight. In the distance you hear the clashing of metal, bone, and teeth like there is a struggle between two great forces.  You hear the grunts of a human in battle and the roars of a massive creature in reply.", () => {
                 typeWriter("Do you want to explore the forest or move towards the sounds of fighting in the distance?\n1. Explore the forest\n2. Move towards the sounds of fighting\n", () => {
                     getPlayerInput((choice) => {
                         if (choice === '1') {
-                            typeWriter("You find a magical metronome! Its steady beat seems to fill you with determination.", () => {
+                            typeWriter("You find a magical metronome! Laying beside the metronome is a large certificate, showing that the metronome has earned it's PhD in keeping tempo. Its steady beat and hard work seems to fill you with determination.", () => {
                                 battle(hasTuningFork, true);
                             });
                         } else if (choice === '2') {
@@ -158,17 +158,17 @@
         }
 
         function battle(hasTuningFork, hasMetronome) {
-            typeWriter("As you exit the forest, you find yourself in a clearing. A knight and a dragon are locked in an epic battle!", () => {
-                typeWriter("The knight swings his sword while the dragon breathes fire, and it seems like neither side is winning.", () => {
+            typeWriter("As you exit the dense forest of tree, you find yourself in a clearing.  The clearing is filled with the ruins of a colosseum, shaped like a U.  If you were to guess, it could probably hold 61,500 people.  In the center of this stadium, A knight and a dragon are locked in an epic battle!", () => {
+                typeWriter("The knight swings his sword while the dragon breathes fire, and it seems like neither side is winning. They continue back and forth, exchanging blows, dodging attacks, and executing perfect parries.  The knight does a number of somersaults in a row, which is impressive in armor, while the dragon uses it's massive wings to deftly move around the knight's attacks.", () => {
                     if (hasTuningFork && hasMetronome) {
-                        typeWriter("What will you do?\n1. Help the knight\n2. Help the dragon\n3. Use the magical tuning fork and metronome to stop the fighting\n", () => {
+                        typeWriter("What will you do?\n1. Help the knight\n2. Help the dragon\n3. Use the magical tuner and metronome to stop the fighting\n", () => {
                             getPlayerInput((choice) => {
                                 if (choice === '1') {
                                     typeWriter("You decide to help the knight. You play a powerful tune that emboldens the knight, giving him the strength to overpower the dragon. The knight thanks you for your help and rides off victoriously.", ending);
                                 } else if (choice === '2') {
                                     typeWriter("You decide to help the dragon. You play a haunting melody that distracts the knight, allowing the dragon to gain the upper hand. The dragon thanks you with a nod before flying away.", ending);
                                 } else if (choice === '3') {
-                                    typeWriter("Using both the magical tuning fork and the metronome to guide your intstrument, you play a powerful tune. The knight and dragon suddenly stop, look at each other, and decide they don't need to fight anymore. They both thank you, shake hands, and go their separate ways.", ending);
+                                    typeWriter("Using both the magical tuner and the metronome to guide your intstrument. It shimmers with magical energy and as you begin to play you, The Bells of Iowa State emerges from your instrument. The knight and dragon suddenly stop, as they are overcome by the beauty of the song. They look at each other, and decide they don't need to fight anymore. They both shake hands, and look to you and give you a short nod in thanks for what you have done for them today. They go their separate ways.", ending);
                                 } else {
                                     typeWriter("Invalid choice. Please try again.\n", () => battle(hasTuningFork, hasMetronome));
                                 }
@@ -192,10 +192,10 @@
         }
 
         function ending() {
-            typeWriter("With the battle complete, the wind picks up and you feel a rumbling in your chest. Behind you a massive cyclone appears and sweeps you off your feet! You spin and tumble through the air, and before you know it you have landed at Jack Trice Stadium.", () => {
-                typeWriter("You hear a long whistle and the screams of your friends as they rush on to MidAmerican Energy Field.  You're back just in time for the show! The Cyclone Marching Band takes the field, and you know this will be a performance to remember.", () => {
+            typeWriter("With the battle complete, the wind picks up and you feel a rumbling in your chest. Behind you a massive cyclone appears and sweeps you off your feet! You spin and tumble through the air and with a loud thump you fall onto the ground. You open your eyes.  You're at Jack Trice Stadium!  Was it all a dream? or did you really just travel to some fantasy land with a real dragon?  You'll have to think about that later because...", () => {
+                typeWriter("In the distance you hear a long whistle and the screams of your friends as they rush on to MidAmerican Energy Field.  'CYCLOOONNNEEE NATION!!!' rings out over the speakers in the stadium and you realize, you're back just in time for the show!  You jump up and find your dot as the Cyclone Marching Band takes the field, and you know this will be a performance to remember.", () => {
                     typeWriter("The end. Thanks for playing! Make sure you stay in your seats during the Choose Your Adventure halftime show on November 16th, where the audience will decide the ending of the show LIVE! ", () => {
-                        typeWriter(" Support the Cyclone Marching Band by giving today at <a href='http://foundation.iastate.edu/band'>http://foundation.iastate.edu/band</a>");
+                        typeWriter(" Support the Cyclone Marching Band by giving today at <a href="http://foundation.iastate.edu/band">http://foundation.iastate.edu/band</a>");
                     });
                 });
             });
