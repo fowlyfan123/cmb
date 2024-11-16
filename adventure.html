@@ -116,7 +116,7 @@
         }
 
         function village() {
-            typeWriter("You come across a small village.  There are many damaged buildings with claw marks. The villagers are upset and wary of strangers, since they were recently attacked by a Bearcat, which they have never seen before.", () => {
+            typeWriter("You come across a small village.  There are many damaged buildings with claw marks. The villagers are upset and wary of strangers, since they were recently attacked by a Bearcat, which they have never seen before in this part of the world.", () => {
                 typeWriter("Do you want to help the villagers or continue on to the forest?\n1. Help the villagers\n2. Continue to the forest\n", () => {
                     getPlayerInput((choice) => {
                         if (choice === '1') {
@@ -168,7 +168,7 @@
                                 } else if (choice === '2') {
                                     typeWriter("You decide to help the dragon. You play a haunting melody that distracts the knight, allowing the dragon to gain the upper hand. The dragon thanks you with a nod before flying away.", ending);
                                 } else if (choice === '3') {
-                                    typeWriter("Using both the magical tuning fork and the metronome, you play a powerful tune. The knight and dragon suddenly stop, look at each other, and decide they don't need to fight anymore. They both thank you, shake hand, and go their separate ways.", ending);
+                                    typeWriter("Using both the magical tuning fork and the metronome to guide your intstrument, you play a powerful tune. The knight and dragon suddenly stop, look at each other, and decide they don't need to fight anymore. They both thank you, shake hands, and go their separate ways.", ending);
                                 } else {
                                     typeWriter("Invalid choice. Please try again.\n", () => battle(hasTuningFork, hasMetronome));
                                 }
@@ -195,7 +195,7 @@
             typeWriter("With the battle complete, the wind picks up and you feel a rumbling in your chest. Behind you a massive cyclone appears and sweeps you off your feet! You spin and tumble through the air, and before you know it you have landed at Jack Trice Stadium.", () => {
                 typeWriter("You hear a long whistle and the screams of your friends as they rush on to MidAmerican Energy Field.  You're back just in time for the show! The Cyclone Marching Band takes the field, and you know this will be a performance to remember.", () => {
                     typeWriter("The end. Thanks for playing! Make sure you stay in your seats during the Choose Your Adventure halftime show on November 16th, where the audience will decide the ending of the show LIVE! ", () => {
-                        typeWriter(" Support the Cyclone Marching Band by giving today at http://foundation.iastate.edu/band");
+                        typeWriter(" Support the Cyclone Marching Band by giving today at <a href='http://foundation.iastate.edu/band'>http://foundation.iastate.edu/band")</a>;
                     });
                 });
             });
