@@ -75,7 +75,7 @@
 
                 function searchRoom() {
                     if (Object.values(items).every(item => item)) {
-                        typeWriter("You found everything! Time to head out.", bearcatAttack);
+                        typeWriter("You found everything! Thanks a weird place to put a shako, but we don't have time to unpack all of that right now. Time to head out.", bearcatAttack);
                         return;
                     }
 
@@ -116,7 +116,7 @@
         }
 
         function village() {
-            typeWriter("You come across a small village.  There are many damaged buildings with claw marks.  A child sits in the road crying with an empty ice cream cone that appears to have had the top completely eaten by a vicious creature. The villagers look upset and wary of strangers. You here one village should angrilly to the sky, 'What even is a bearcat!?!' and you guess this village was recently attacked by the same bearcat that just came after you, which makes little sense because they are not indigenous to this region.", () => {
+            typeWriter("You come across a small village.  There are many damaged buildings with claw marks.  A child sits in the road crying with an empty ice cream cone that appears to have had the top completely eaten by a vicious creature. The villagers look upset and wary of strangers. You hear one village shout angrilly to the sky, 'WHAT EVEN IS A BEARCAT!?!' and you guess this village was recently attacked by the same bearcat that just came after you, which makes little sense because they are not indigenous to this region.", () => {
                 typeWriter("Do you want to help the villagers or continue on to the forest?\n1. Help the villagers\n2. Continue to the forest\n", () => {
                     getPlayerInput((choice) => {
                         if (choice === '1') {
@@ -168,7 +168,7 @@
                                 } else if (choice === '2') {
                                     typeWriter("You decide to help the dragon. You play a haunting melody that distracts the knight, allowing the dragon to gain the upper hand. The dragon thanks you with a nod before flying away.", ending);
                                 } else if (choice === '3') {
-                                    typeWriter("You use both the magical tuner and the metronome to guide your intstrument. It shimmers with magical energy, glowing like a white dawn, and as you begin to play you, The Bells of Iowa State emerges from your instrument. The knight and dragon suddenly stop, as they are overcome by the beauty of the song. They look at each other, and decide they don't need to fight anymore. They both shake hands, and look to you and give you a short nod in thanks for what you have done for them today. They go their separate ways.", ending);
+                                    typeWriter("You use both the magical tuner and the metronome to guide your intstrument. It shimmers with magical energy, glowing like a white dawn, and as you begin to play you, The Bells of Iowa State emerges from your instrument. The knight and dragon suddenly stop, as they are overcome by the beauty of the music. They look at each other, and decide they don't need to fight anymore. They both shake hands, and look to you and give you a short nod in thanks for what you have done for them today. They go their separate ways.", ending);
                                 } else {
                                     typeWriter("Invalid choice. Please try again.\n", () => battle(hasTuningFork, hasMetronome));
                                 }
