@@ -193,8 +193,10 @@
 
         function ending() {
             typeWriter("With the battle complete, the wind picks up and you feel a rumbling in your chest. Behind you a massive cyclone appears and sweeps you off your feet! You spin and tumble through the air, and before you know it you have landed at Jack Trice Stadium.", () => {
-                typeWriter("You hear a long whistle and the screams of your friends.  You're back just in time for the show! The Cyclone Marching Band takes the field, and you know this will be a performance to remember.", () => {
-                    typeWriter("The end. Thanks for playing!");
+                typeWriter("You hear a long whistle and the screams of your friends as they rush on to MidAmerican Energy Field.  You're back just in time for the show! The Cyclone Marching Band takes the field, and you know this will be a performance to remember.", () => {
+                    typeWriter("The end. Thanks for playing! Make sure you stay in your seats during the Choose Your Adventure halftime show on November 16th, where the audience will decide the ending of the show LIVE! "); () => {
+                        typeWriter(" Support the Cyclone Marching Band by giving today at http://foundation.iastate.edu/band");
+                    });
                 });
             });
         }
