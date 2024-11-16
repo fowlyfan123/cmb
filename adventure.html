@@ -75,7 +75,7 @@
 
                 function searchRoom() {
                     if (Object.values(items).every(item => item)) {
-                        typeWriter("You found everything! Thanks a weird place to put a shako, but we don't have time to unpack all of that right now. Time to head out.", bearcatAttack);
+                        typeWriter("You found everything! That is a weird place to put a shako, but we don't have time to unpack all of that right now or else you'll lose precious minutes. Time to head out.", bearcatAttack);
                         return;
                     }
 
@@ -109,7 +109,7 @@
             typeWriter("As you step out of your room, instead of the familiar hallway of your dorm, you are in the middle of a field of rolling green hills and the sound of bells in the distance.  Interupting this calm and magical world, almost out of nowhere, a bearcat suddenly appears! It snarls at you, ready to fight.", () => {
                 typeWriter("What will you do?\n1. Play a loud note to scare it away\n2. Try to calm it with a soothing melody\n3. Stand your ground bravely\n", () => {
                     getPlayerInput((choice) => {
-                        typeWriter("Just as you are about to take action, Cy swoops in! The Bearcat is no match for Cy's aerial skills, and the bearcat retreats with his tail between his legs.", village);
+                        typeWriter("Just as you are about to take action, Cy swoops in! The Bearcat is no match for Cy's aerial skills, and the bearcat retreats with his tail between his legs. You wonder if there is metaphor here, but realize that might be the least of your concerns right now.  Cy, a large humanoid cardinal, doesn't speak to you after the battle, but grabs you by the shoulder like you are best friends and gestures towards a path that leads to a small pillar of smoke in the distance. You begin moving that direction, as and you turn back to thank Cy, he has already disappeared.", village);
                     });
                 });
             });
